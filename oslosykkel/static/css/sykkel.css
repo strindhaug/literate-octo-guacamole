@@ -1,0 +1,37 @@
+.contentwrap {
+  max-width: 30em;
+  font-family: sans-serif;
+  margin: 1em auto;
+}
+.col-text {
+  text-align: left;
+}
+.col-number {
+  text-align: right;
+}
+.col-center {
+  text-align: center;
+}
+.error {
+  color: red;
+}
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+tr {
+  border: 0 none;
+}
+th,
+td {
+  border: 0 none;
+  padding: 0.5em;
+}
+/* odd rows */
+table tbody tr:nth-of-type(2n + 1) {
+  background-color: #e8e8e8;
+}
+/* even rows */
+table tbody tr:nth-of-type(2n) {
+  background-color: #f7f7f7;
+}

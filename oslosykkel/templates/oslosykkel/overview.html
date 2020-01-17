@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}sykkelpage{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sykkel.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <div class="contentwrap">
+
+    {% comment %}
+
+      This is a safe way to serialize json onto a page without risking cross
+      site scripting issues. Since any potential html tag characters is escaped
+      by the json_script filter and the resulting json is parsed using
+      JSON.parse and not directly executed.
+
+      In an actual app, I would probably use this for the initial pageload data
+      (unless it's too much data), but also set up a separate json api view that
+      can be fetched asyncronously with ajax, without needing to reload the
+      whole page.
+
+    {% endcomment %}
+    {{ sysinfo|json_script:"data-sysinfo" }}
+    {{ station_status|json_script:"data-status" }}
+    {{ station_info|json_script:"data-info" }}
+
+    <div id="status_display">
+      {# status will go here #}
+    </div>
+    <br><br>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-text">Stasjon</th>
+          <th class="col-number">Ledige låser</th>
+          <th class="col-number">Ledige sykler</th>
+          <th class="col-number"></th>
+        </tr>
+      </thead>
+      <tbody id="sykkel_tab_body">
+        <tr>
+          <td colspan="4" class="col-center">Laster inn...</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/sykkel.js' %}"></script>
+{% endblock %}
